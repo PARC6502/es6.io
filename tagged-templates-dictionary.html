@@ -28,10 +28,9 @@
     let str = "";
 
     text.forEach( (words, i) => {
-      // if (dict.hasOwnProperty(values[i]))
-      str += `${words} ${dict.hasOwnProperty(values[i]) ?
-        `<abbr title=tooltip>${(values[i] || '')}</abbr>` : (values[i] || '')}` ;
-      // else str+= words + (values[i] || '');
+      let value = (values[i] || ''); // set value to empty string if values[i] is out of range
+      str += `${words} ${dict.hasOwnProperty(value) ? 
+        `<abbr title="${dict[value]}">${value}</abbr>` : value}`;
     } );
 
     return str;
