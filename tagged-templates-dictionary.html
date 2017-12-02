@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tagged Templates</title>
+  <style>
+    abbr {
+      border-bottom:1px dotted grey;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bio">
+
+  </div>
+
+<script>
+  const dict = {
+    HTML: 'Hyper Text Markup Language',
+    CSS: 'Cascading Style Sheets',
+    JS: 'JavaScript'
+  };
+
+  function addAbbreviation(text, ...values) {
+    console.log(text);
+    console.log(values);
+    let str = "";
+
+    text.forEach( (words, i) => {
+      // if (dict.hasOwnProperty(values[i]))
+      str += `${words} ${dict.hasOwnProperty(values[i]) ?
+        `<abbr title=tooltip>${(values[i] || '')}</abbr>` : (values[i] || '')}` ;
+      // else str+= words + (values[i] || '');
+    } );
+
+    return str;
+  }
+
+  const first = 'Wes';
+  const last = 'Bos';
+
+  const sentence = addAbbreviation`Hello my name is ${first} ${last} and I love to code ${'HTML'}, ${'CSS'} and ${'JS'}`;
+  console.log(sentence);
+
+  const bio = document.querySelector('.bio');
+  const p = document.createElement('p');
+  p.innerHTML = sentence;
+  bio.appendChild(p);
+
+</script>
+</body>
+</html>
