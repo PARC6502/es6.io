@@ -22,24 +22,35 @@
     JS: 'JavaScript'
   };
 
+  // My solution
+  // 
   function addAbbreviation(text, ...values) {
-    console.log(text);
-    console.log(values);
     let str = "";
 
     text.forEach( (words, i) => {
       let value = (values[i] || ''); // set value to empty string if values[i] is out of range
-      str += `${words} ${dict.hasOwnProperty(value) ? 
-        `<abbr title="${dict[value]}">${value}</abbr>` : value}`;
+      str += `${words} ${ dict[value] ? `<abbr title="${dict[value]}">${value}</abbr>` : value}`;
     } );
 
     return str;
   }
 
+  //this is wes's solution from the videos
+  function wesAbbreviation(text, ...values) {
+    const abbreviated = values.map( value => {
+      if (dict[value]) 
+        return `<abbr title="${dict[value]}">${value}</abbr>`;
+      return value;
+    } );
+    console.log(abbreviated);
+    return text.reduce( (sentence, current, i) => sentence+current+(abbreviated[i] || '') );
+  }
+
   const first = 'Wes';
   const last = 'Bos';
 
-  const sentence = addAbbreviation`Hello my name is ${first} ${last} and I love to code ${'HTML'}, ${'CSS'} and ${'JS'}`;
+  // const sentence = addAbbreviation`Hello my name is ${first} ${last} and I love to code ${'HTML'}, ${'CSS'} and ${'JS'}`;
+  const sentence = wesAbbreviation`Hello my name is ${first} ${last} and I love to code ${'HTML'}, ${'CSS'} and ${'JS'}`;
   console.log(sentence);
 
   const bio = document.querySelector('.bio');
